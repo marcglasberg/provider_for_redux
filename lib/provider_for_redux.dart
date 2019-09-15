@@ -18,14 +18,11 @@ import 'package:provider/provider.dart';
 ///
 /// ```
 /// class MyApp extends StatelessWidget {
-///
 ///   @override
 ///   Widget build(BuildContext context) {
-///     return AsyncReduxProvider<AppState>(
-///       store: store,
-///       child: MaterialApp(
-///         home: MyHomePage(),
-///       )
+///     return AsyncReduxProvider<AppState>.value(
+///       value: store,
+///       child: MaterialApp(home: MyHomePage())
 ///     );
 ///   }}
 /// ```
@@ -51,14 +48,15 @@ import 'package:provider/provider.dart';
 ///  Provider.of<Store<AppState>>(context).dispatch(IncrementAction());
 /// ```
 ///
-class AsyncReduxProvider<St> extends StatelessWidget {
-  final Widget child;
-
+class AsyncReduxProvider<St> extends StatefulWidget {
   final ValueBuilder<Store<St>> builder;
+  final Disposer<Store<St>> dispose;
+  final Widget child;
 
   AsyncReduxProvider({
     Key key,
     @required this.builder,
+    this.dispose,
     @required this.child,
   })  : assert(child != null),
         super(key: key);
@@ -74,43 +72,57 @@ class AsyncReduxProvider<St> extends StatelessWidget {
         );
 
   @override
-  Widget build(BuildContext context) {
-    //
-    Store<St> _store = builder(context);
+  _AsyncReduxProviderState<St> createState() => _AsyncReduxProviderState<St>();
+}
 
-    return MultiProvider(
-      providers: [
-        //
-        // The store: ------------------------
-        StreamProvider<Store<St>>(
-          builder: (BuildContext context) => _store.onChange.map((x) => _store),
-          initialData: _store,
-          catchError: null,
-          updateShouldNotify: (Store<St> previous, Store<St> current) => true,
-        ),
-        //
-        // The store state: ------------------
-        StreamProvider<St>(
-          builder: (BuildContext context) => _store.onChange,
-          initialData: _store.state,
-          catchError: null,
-          updateShouldNotify: (St previous, St current) => true,
-        ),
-        //
-        // The dispatch method:  -------------
-        Provider<Dispatch>.value(value: _store.dispatch),
-        //
-      ],
-      //
-      // This is needed for the StoreConnector. In other words, you can
-      // use both StoreConnector and AsyncReduxProvider at the same time,
-      // allowing for the progressive migration between them.
-      child: StoreProvider<St>(
-        store: _store,
-        child: child,
-      ),
-    );
+class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
+  Store<St> _store;
+
+  @override
+  void initState() {
+    super.initState();
+    _store = widget.builder(context);
   }
+
+  @override
+  void dispose() {
+    widget.dispose?.call(context, _store);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => MultiProvider(
+        providers: [
+          //
+          // The store: ------------------------
+          StreamProvider<Store<St>>(
+            builder: (BuildContext context) => _store.onChange.map((x) => _store),
+            initialData: _store,
+            catchError: null,
+            updateShouldNotify: (Store<St> previous, Store<St> current) => true,
+          ),
+          //
+          // The store state: ------------------
+          StreamProvider<St>(
+            builder: (BuildContext context) => _store.onChange,
+            initialData: _store.state,
+            catchError: null,
+            updateShouldNotify: (St previous, St current) => true,
+          ),
+          //
+          // The dispatch method:  -------------
+          Provider<Dispatch>.value(value: _store.dispatch),
+          //
+        ],
+        //
+        // This is needed for the StoreConnector. In other words, you can
+        // use both StoreConnector and AsyncReduxProvider at the same time,
+        // allowing for the progressive migration between them.
+        child: StoreProvider<St>(
+          store: _store,
+          child: widget.child,
+        ),
+      );
 }
 
 // ////////////////////////////////////////////////////////////////////////////
