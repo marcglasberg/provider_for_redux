@@ -53,19 +53,31 @@ import 'package:provider/provider.dart';
 ///
 class AsyncReduxProvider<St> extends StatelessWidget {
   final Widget child;
-  final Store<St> _store;
+
+  final ValueBuilder<Store<St>> builder;
 
   AsyncReduxProvider({
     Key key,
-    @required Store<St> store,
+    @required this.builder,
     @required this.child,
-  })  : assert(store != null),
-        assert(child != null),
-        _store = store,
+  })  : assert(child != null),
         super(key: key);
+
+  AsyncReduxProvider.value({
+    Key key,
+    @required Store<St> value,
+    Widget child,
+  }) : this(
+          key: key,
+          builder: (context) => value,
+          child: child,
+        );
 
   @override
   Widget build(BuildContext context) {
+    //
+    Store<St> _store = builder(context);
+
     return MultiProvider(
       providers: [
         //

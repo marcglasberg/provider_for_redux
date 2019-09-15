@@ -1,5 +1,5 @@
 name: provider_for_redux
-description: Use Provider instead of StoreConnector, in AsyncRedux.
+description: Let's you use Provider with Redux.
 version: 1.0.0
 author:
 homepage:

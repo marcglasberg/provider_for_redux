@@ -20,8 +20,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => AsyncReduxProvider<AppState>(
-        store: store,
+  Widget build(BuildContext context) => AsyncReduxProvider<AppState>.value(
+        value: store,
         child: MaterialApp(home: MyHomePage()),
       );
 }

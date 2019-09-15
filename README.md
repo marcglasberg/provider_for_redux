@@ -39,8 +39,8 @@ For example:
 ```dart
 @override
 Widget build(BuildContext context) => 
-    AsyncReduxProvider<AppState>( // Instead of StoreProvider.
-        store: store,
+    AsyncReduxProvider<AppState>.value( // Instead of StoreProvider.
+        value: store,
         child: MaterialApp(
             home: MyHomePage(), // Instead of MyHomePageConnector. 
         ));
