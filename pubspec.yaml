@@ -1,0 +1,21 @@
+name: provider_for_redux
+description: Use Provider instead of StoreConnector, in AsyncRedux.
+version: 1.0.0
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  async_redux: ^1.4.1
+  provider: ^3.1.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
