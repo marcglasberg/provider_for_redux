@@ -204,8 +204,17 @@ return ReduxSelector<AppState, dynamic>(
 ```                                                                                           
 
 **Using `ReduxSelector` with a list is the easiest way of all**, since you just need to list all of the state 
-parts that should trigger a rebuild. However, beware: If your builder uses some state that you forgot to 
-put in the list it will not rebuild when that state changes.
+parts that should trigger a rebuild. 
+
+**Note:** The `builder` gives you both the `state` and the `model`, 
+and you can choose one of them to build your widget from.
+While using `state` is probably easier for you, it's also easier to accidentally 
+use something you forget to add to the `model`, and then wonder why the Widget doesn't rebuild.
+So you have two options: 
+1) Use only the `model` and have the compiler make sure there's no state 
+you're using from outside of the model. 
+2) Use `state` directly, and have yourself the responsibility to make
+you've listed everything you're using in the model. 
 
 This is a complete example:
 
