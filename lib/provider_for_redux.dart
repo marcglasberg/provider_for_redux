@@ -1,5 +1,4 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -326,7 +325,7 @@ class _Selector0State<St, Model> extends State<_Selector0<St, Model>> {
   /// However, if the model is a list, compare each list item.
   bool modelChanged(Model selected) {
     if (selected is List && model is List)
-      return !(const ListEquality().equals(selected, (model as List)));
+      return !(listEquals(selected, (model as List)));
     else
       return selected != model;
   }
