@@ -40,7 +40,7 @@ class MyHomePage extends StatelessWidget {
     return Consumer<Store<AppState>>(
         //
         builder: (ctx, store, child) => Scaffold(
-            appBar: AppBar(title: Text('Increment Example')),
+            appBar: AppBar(title: Text('Increment Example (2)')),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

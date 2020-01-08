@@ -40,12 +40,12 @@ class MyHomePage extends StatelessWidget {
   String description(ctx) => Provider.of<AppState>(ctx).description;
 
   VoidCallback onIncrement(ctx) =>
-      () => Provider.of<Dispatch>(ctx)(IncrementAndGetDescriptionAction());
+      () => Provider.of<Dispatch>(ctx, listen: false)(IncrementAndGetDescriptionAction());
 
   @override
   Widget build(BuildContext ctx) {
     return Scaffold(
-        appBar: AppBar(title: Text('Increment Example')),
+        appBar: AppBar(title: Text('Increment Example (1)')),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

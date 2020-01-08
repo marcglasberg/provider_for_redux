@@ -39,7 +39,7 @@ class MyHomePage extends StatelessWidget {
     return ReduxConsumer<AppState>(
         //
         builder: (ctx, store, state, dispatch, child) => Scaffold(
-            appBar: AppBar(title: Text('Increment Example')),
+            appBar: AppBar(title: Text('Increment Example (3)')),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

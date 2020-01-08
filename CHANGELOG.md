@@ -1,3 +1,7 @@
+## [1.1.0] - 2020/01/08
+
+* Depends on Provider 4.0.
+
 ## [1.0.6] - 2019/09/17
 
 * Depends on newest async_redux.

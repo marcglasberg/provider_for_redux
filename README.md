@@ -65,7 +65,7 @@ class MyHomePage extends StatelessWidget {
   String description(context) => Provider.of<AppState>(context).description;
 
   VoidCallback onIncrement(context) =>
-      () => Provider.of<Dispatch>(context)(IncrementAndGetDescriptionAction());
+      () => Provider.of<Dispatch>(context, listen: false)(IncrementAndGetDescriptionAction());
 
   @override
   Widget build(BuildContext context) {

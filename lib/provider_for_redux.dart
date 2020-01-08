@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 // Developed by Marcelo Glasberg (Aug 2019).
 // For more info, see: https://pub.dartlang.org/packages/async_redux
@@ -47,9 +48,10 @@ import 'package:provider/provider.dart';
 ///  Provider.of<Store<AppState>>(context).dispatch(IncrementAction());
 /// ```
 ///
+///
 class AsyncReduxProvider<St> extends StatefulWidget {
-  final ValueBuilder<Store<St>> builder;
-  final Disposer<Store<St>> dispose;
+  final Create<Store<St>> builder;
+  final Dispose<Store<St>> dispose;
   final Widget child;
 
   AsyncReduxProvider({
@@ -95,7 +97,7 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
           //
           // The store: ------------------------
           StreamProvider<Store<St>>(
-            builder: (BuildContext context) => _store.onChange.map((x) => _store),
+            create: (BuildContext context) => _store.onChange.map((x) => _store),
             initialData: _store,
             catchError: null,
             updateShouldNotify: (Store<St> previous, Store<St> current) => true,
@@ -103,7 +105,7 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
           //
           // The store state: ------------------
           StreamProvider<St>(
-            builder: (BuildContext context) => _store.onChange,
+            create: (BuildContext context) => _store.onChange,
             initialData: _store.state,
             catchError: null,
             updateShouldNotify: (St previous, St current) => true,
@@ -241,16 +243,16 @@ class ReduxSelector<St, Model> extends _Selector0<St, Model> {
 
 // ////////////////////////////////////////////////////////////////////////////
 
-class _Selector0<St, Model> extends StatefulWidget implements SingleChildCloneableWidget {
+class _Selector0<St, Model> extends SingleChildStatefulWidget implements SingleChildWidget {
   /// Both `builder` and `selector` must not be `null`.
   _Selector0({
     Key key,
     @required this.builder,
     @required this.selector,
-    this.child,
+    Widget child,
   })  : assert(builder != null),
         assert(selector != null),
-        super(key: key);
+        super(key: key, child: child);
 
   /// A function that builds a widget tree from [child] and the last result of
   /// [selector].
@@ -275,34 +277,19 @@ class _Selector0<St, Model> extends StatefulWidget implements SingleChildCloneab
   /// The returned object must implement [operator==].
   ///
   /// Must not be `null`
-  final ValueBuilder<Model> selector;
-
-  /// A cache of a widget tree that does not depend on the value of [selector].
-  ///
-  /// See [Consumer] for an explanation on how to use it.
-  final Widget child;
+  final Create<Model> selector;
 
   @override
   _Selector0State<St, Model> createState() => _Selector0State<St, Model>();
-
-  @override
-  _Selector0<St, Model> cloneWithChild(Widget child) {
-    return _Selector0(
-      key: key,
-      selector: selector,
-      builder: builder,
-      child: child,
-    );
-  }
 }
 
-class _Selector0State<St, Model> extends State<_Selector0<St, Model>> {
+class _Selector0State<St, Model> extends SingleChildState<_Selector0<St, Model>> {
   Model model;
   Widget cache;
   Widget oldWidget;
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWithChild(BuildContext context, Widget child) {
     Model selected = widget.selector(context);
 
     if (oldWidget != widget || modelChanged(selected)) {
@@ -315,7 +302,7 @@ class _Selector0State<St, Model> extends State<_Selector0<St, Model>> {
         Provider.of<St>(context),
         Provider.of<Dispatch>(context),
         model,
-        widget.child,
+        child,
       );
     }
     return cache;
