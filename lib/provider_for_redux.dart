@@ -33,6 +33,7 @@ import 'package:provider/single_child_widget.dart';
 /// Provider.of<Store<AppState>>(context) to get the store.
 /// Provider.of<AppState>(context) to get the state.
 /// Provider.of<Dispatch>(context) to get the dispatch method.
+/// Provider.of<DispatchFuture>(context) to get the async dispatch method.
 /// ```
 ///
 /// Example of using `state` and `dispatch`:
@@ -113,6 +114,9 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
           //
           // The dispatch method:  -------------
           Provider<Dispatch>.value(value: _store.dispatch),
+          //
+          // The async dispatch method:  -------------
+          Provider<DispatchFuture>.value(value: _store.dispatchFuture),
           //
         ],
         //
