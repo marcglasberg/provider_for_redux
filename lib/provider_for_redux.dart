@@ -115,7 +115,7 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
           // The dispatch method:  -------------
           Provider<Dispatch>.value(value: _store.dispatch),
           //
-          // The async dispatch method:  -------------
+          // The dispatch-future method:  -------------
           Provider<DispatchFuture>.value(value: _store.dispatchFuture),
           //
         ],

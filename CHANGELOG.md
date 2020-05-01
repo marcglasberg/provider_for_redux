@@ -1,3 +1,7 @@
+## [1.1.1] - 2020/05/01
+
+* DispatchFuture in Provider.of.
+
 ## [1.1.0] - 2020/01/08
 
 * Depends on Provider 4.0.
