@@ -12,8 +12,8 @@ dependencies:
   path_provider: ^1.4.4
   provider: ^4.0.1
   provider_for_redux:
-  tuple: ^1.0.3
     path: ../
+  tuple: ^1.0.3
   flutter:
     sdk: flutter
 
