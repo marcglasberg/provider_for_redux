@@ -1,3 +1,7 @@
+## [1.1.5] - 2021/02/16
+
+* Small refactors.
+
 ## [1.1.4] - 2020/09/14
 
 * Docs improvement.
