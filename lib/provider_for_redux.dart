@@ -55,7 +55,7 @@ class AsyncReduxProvider<St> extends StatefulWidget {
   final Dispose<Store<St>> dispose;
   final Widget child;
 
-  AsyncReduxProvider({
+  const AsyncReduxProvider({
     Key key,
     @required this.builder,
     this.dispose,
@@ -113,10 +113,10 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
           ),
           //
           // The dispatch method:  -------------
-          Provider<Dispatch>.value(value: _store.dispatch),
+          Provider<Dispatch<St>>.value(value: _store.dispatch),
           //
           // The dispatch-future method:  -------------
-          Provider<DispatchFuture>.value(value: _store.dispatchFuture),
+          Provider<DispatchFuture<St>>.value(value: _store.dispatchFuture),
           //
         ],
         //
@@ -249,7 +249,7 @@ class ReduxSelector<St, Model> extends _Selector0<St, Model> {
 
 class _Selector0<St, Model> extends SingleChildStatefulWidget implements SingleChildWidget {
   /// Both `builder` and `selector` must not be `null`.
-  _Selector0({
+  const _Selector0({
     Key key,
     @required this.builder,
     @required this.selector,
@@ -315,10 +315,9 @@ class _Selector0State<St, Model> extends SingleChildState<_Selector0<St, Model>>
   /// Compare the old model with the new model.
   /// However, if the model is a list, compare each list item.
   bool modelChanged(Model selected) {
-    if (selected is List && model is List)
-      return !(listEquals(selected, (model as List)));
-    else
-      return selected != model;
+    return (selected is List) && (model is List)
+        ? !(listEquals<dynamic>(selected, (model as List)))
+        : selected != model;
   }
 }
 

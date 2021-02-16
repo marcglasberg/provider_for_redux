@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AsyncReduxProvider<AppState>.value(
         value: store,
-        child: MaterialApp(home: MyHomePage()),
+        child: const MaterialApp(home: MyHomePage()),
       );
 }
 
@@ -32,27 +32,27 @@ class MyApp extends StatelessWidget {
 /// When the button is tapped, the counter will increment synchronously,
 /// while an async process downloads some text description.
 class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key}) : super(key: key);
+  const MyHomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext ctx) {
     return ReduxConsumer<AppState>(
         //
         builder: (ctx, store, state, dispatch, child) => Scaffold(
-            appBar: AppBar(title: Text('Increment Example (3)')),
+            appBar: AppBar(title: const Text('Increment Example (3)')),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("You've pushed the button:"),
-                  Text('${state.counter}', style: TextStyle(fontSize: 30)),
-                  Text('${state.description}', style: TextStyle(fontSize: 15)),
+                  const Text("You've pushed the button:"),
+                  Text('${state.counter}', style: const TextStyle(fontSize: 30)),
+                  Text(state.description, style: const TextStyle(fontSize: 15)),
                 ],
               ),
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () => dispatch(IncrementAndGetDescriptionAction()),
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             )));
   }
 }
