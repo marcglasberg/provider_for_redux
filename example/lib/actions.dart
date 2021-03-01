@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import 'app_state.dart';
@@ -23,7 +21,7 @@ class IncrementAndGetDescriptionAction extends ReduxAction<AppState> {
     dispatch(IncrementAction(amount: 1));
 
     // Then, we start and wait for some asynchronous process.
-    String description = await read("http://numbersapi.com/${state.counter}");
+    String description = await read(Uri.http("numbersapi.com", "${state.counter}"));
 
     // After we get the response, we can modify the state with it,
     // without having to dispatch another action.
@@ -37,11 +35,11 @@ class IncrementAndGetDescriptionAction extends ReduxAction<AppState> {
 class IncrementAction extends ReduxAction<AppState> {
   final int amount;
 
-  IncrementAction({@required this.amount}) : assert(amount != null);
+  IncrementAction({required this.amount});
 
   // Synchronous reducer.
   @override
-  AppState reduce() => state.copy(counter: state.counter + amount);
+  AppState reduce() => state.copy(counter: state.counter! + amount);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

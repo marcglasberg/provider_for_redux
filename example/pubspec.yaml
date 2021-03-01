@@ -1,21 +1,21 @@
 name: example
 description: Example for provider_for_redux.
-
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.8.0 <3.0.0"
+  sdk: '>=2.12.0-259.16.beta <3.0.0'
 
 dependencies:
-  async_redux: ^2.2.0
-  path_provider: ^1.4.4
-  provider: ^4.0.1
-  http: ^0.12.0+2
-  tuple: ^1.0.3
-  provider_for_redux:
-    path: ../
+  async_redux: ^9.0.0-nullsafety.1
   flutter:
     sdk: flutter
+  http: ^0.13.0
+  path_provider: ^2.0.0-nullsafety.1
+  provider: ^5.0.0-nullsafety.5
+  provider_for_redux:
+    path: ../
+  tuple: ^2.0.0-nullsafety.0
 
 dev_dependencies:
   flutter_test:
