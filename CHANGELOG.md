@@ -1,3 +1,7 @@
+## [2.0.0-nullsafety.2] - 2021/02/28
+
+* NNBD.
+
 ## [1.1.5] - 2021/02/16
 
 * Small refactors.

@@ -1,6 +1,6 @@
 name: provider_for_redux
 description: Let's you use Provider with Redux. Uses AsyncRedux, the non-boilerplate version of Redux (https://pub.dev/packages/async_redux).
-version: 2.0.00-nullsafety.1
+version: 2.0.0-nullsafety.2
 author: Marcelo Glasberg <marcglasberg@gmail.com>
 homepage: https://github.com/marcglasberg/provider_for_redux
 

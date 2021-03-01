@@ -105,15 +105,22 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
           //
           // The store state: ------------------
           ProxyProvider<Store<St>, St>(
-            update: (BuildContext context, Store<St> providerStore, St previousState) =>
+            update: (
+              BuildContext context,
+              Store<St> providerStore,
+              St? previousState,
+            ) =>
                 providerStore.state,
-          //
-          StreamProvider<St>(
-            create: (BuildContext context) => _store!.onChange,
-            initialData: _store!.state,
-            catchError: null,
             updateShouldNotify: (St previous, St current) => true,
           ),
+          //
+          // This was removed, substituted by the ProxyProvider above:
+          // StreamProvider<St>(
+          //   create: (BuildContext context) => _store!.onChange,
+          //   initialData: _store!.state,
+          //   catchError: null,
+          //   updateShouldNotify: (St previous, St current) => true,
+          // ),
           //
           // The dispatch method (no AppState type parameter):  -------------
           // Allows: Provider.of<Dispatch>
