@@ -8,11 +8,16 @@ import 'app_state.dart';
 // Developed by Marcelo Glasberg (Aug 2019).
 // For more info, see: https://pub.dartlang.org/packages/provider_for_redux
 
-Store<AppState> store;
+late Store<AppState> store;
 
 /// This example shows how to use `ReduxSelector` to access the Redux store,
 /// and how the selector may return a model class (in this case a `Tuple2`)
 /// to control when the widget rebuilds.
+///
+///
+/// Note: This example uses http. It was configured to work in Android, debug mode only.
+/// If you use iOS, please see:
+/// https://flutter.dev/docs/release/breaking-changes/network-policy-ios-android
 ///
 void main() {
   var state = AppState.initialState();
@@ -34,11 +39,11 @@ class MyApp extends StatelessWidget {
 /// When the button is tapped, the counter will increment synchronously,
 /// while an async process downloads some text description.
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext ctx) {
-    return ReduxSelector<AppState, Tuple2<int, String>>(
+    return ReduxSelector<AppState, Tuple2<int?, String?>>(
         //
         selector: (ctx, state) => Tuple2(
               state.counter,
@@ -53,7 +58,7 @@ class MyHomePage extends StatelessWidget {
                 children: [
                   const Text("You've pushed the button:"),
                   Text('${state.counter}', style: const TextStyle(fontSize: 30)),
-                  Text(state.description, style: const TextStyle(fontSize: 15)),
+                  Text(state.description!, style: const TextStyle(fontSize: 15)),
                 ],
               ),
             ),

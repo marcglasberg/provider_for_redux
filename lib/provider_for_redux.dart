@@ -52,21 +52,20 @@ import 'package:provider/single_child_widget.dart';
 ///
 class AsyncReduxProvider<St> extends StatefulWidget {
   final Create<Store<St>> builder;
-  final Dispose<Store<St>> dispose;
+  final Dispose<Store<St>?>? dispose;
   final Widget child;
 
   const AsyncReduxProvider({
-    Key key,
-    @required this.builder,
+    Key? key,
+    required this.builder,
     this.dispose,
-    @required this.child,
-  })  : assert(child != null),
-        super(key: key);
+    required this.child,
+  }) : super(key: key);
 
   AsyncReduxProvider.value({
-    Key key,
-    @required Store<St> value,
-    Widget child,
+    Key? key,
+    required Store<St> value,
+    required Widget child,
   }) : this(
           key: key,
           builder: (context) => value,
@@ -78,7 +77,7 @@ class AsyncReduxProvider<St> extends StatefulWidget {
 }
 
 class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
-  Store<St> _store;
+  Store<St>? _store;
 
   @override
   void initState() {
@@ -98,25 +97,35 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
           //
           // The store: ------------------------
           StreamProvider<Store<St>>(
-            create: (BuildContext context) => _store.onChange.map((x) => _store),
-            initialData: _store,
+            create: (BuildContext context) => _store!.onChange.map((x) => _store!),
+            initialData: _store!,
             catchError: null,
-            updateShouldNotify: (Store<St> previous, Store<St> current) => true,
+            updateShouldNotify: (Store<St>? previous, Store<St>? current) => true,
           ),
           //
           // The store state: ------------------
           StreamProvider<St>(
-            create: (BuildContext context) => _store.onChange,
-            initialData: _store.state,
+            create: (BuildContext context) => _store!.onChange,
+            initialData: _store!.state,
             catchError: null,
             updateShouldNotify: (St previous, St current) => true,
           ),
           //
-          // The dispatch method:  -------------
-          Provider<Dispatch<St>>.value(value: _store.dispatch),
+          // The dispatch method (no AppState type parameter):  -------------
+          // Allows: Provider.of<Dispatch>
+          Provider<Dispatch>.value(value: _store!.dispatch as Dispatch),
           //
-          // The dispatch-future method:  -------------
-          Provider<DispatchFuture<St>>.value(value: _store.dispatchFuture),
+          // The dispatch method (with AppState type parameter): -------------
+          // Provider.of<Dispatch<AppState>>
+          Provider<Dispatch<St>>.value(value: _store!.dispatch),
+          //
+          // The dispatch method (no AppState type parameter):  -------------
+          // Allows: Provider.of<Dispatch>
+          Provider<DispatchFuture>.value(value: _store!.dispatchFuture as DispatchFuture),
+          //
+          // The dispatch method (with AppState type parameter): -------------
+          // Provider.of<Dispatch<AppState>>
+          Provider<DispatchFuture<St>>.value(value: _store!.dispatchFuture),
           //
         ],
         //
@@ -124,7 +133,7 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
         // use both StoreConnector and AsyncReduxProvider at the same time,
         // allowing for the progressive migration between them.
         child: StoreProvider<St>(
-          store: _store,
+          store: _store!,
           child: widget.child,
         ),
       );
@@ -162,19 +171,17 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
 ///
 class ReduxConsumer<St> extends Consumer3<Store<St>, St, Dispatch> {
   ReduxConsumer({
-    Key key,
-    @required
-        Widget Function(
+    Key? key,
+    required Widget Function(
       BuildContext context,
       Store<St> store,
       St state,
       Dispatch dispatch,
-      Widget child,
+      Widget? child,
     )
-            builder,
-    Widget child,
-  })  : assert(builder != null),
-        super(
+        builder,
+    Widget? child,
+  }) : super(
           key: key,
           builder: builder,
           child: child,
@@ -219,22 +226,19 @@ class ReduxConsumer<St> extends Consumer3<Store<St>, St, Dispatch> {
 ///
 class ReduxSelector<St, Model> extends _Selector0<St, Model> {
   ReduxSelector({
-    Key key,
-    @required
-        Widget Function(
+    Key? key,
+    required Widget Function(
       BuildContext context,
       Store<St> store,
       St state,
       Dispatch dispatch,
       Model model,
-      Widget child,
+      Widget? child,
     )
-            builder,
-    @required
-        Model Function(BuildContext, St) selector,
-    Widget child,
-  })  : assert(selector != null),
-        super(
+        builder,
+    required Model Function(BuildContext, St) selector,
+    Widget? child,
+  }) : super(
           key: key,
           builder: builder,
           selector: (context) => selector(
@@ -250,13 +254,11 @@ class ReduxSelector<St, Model> extends _Selector0<St, Model> {
 class _Selector0<St, Model> extends SingleChildStatefulWidget implements SingleChildWidget {
   /// Both `builder` and `selector` must not be `null`.
   const _Selector0({
-    Key key,
-    @required this.builder,
-    @required this.selector,
-    Widget child,
-  })  : assert(builder != null),
-        assert(selector != null),
-        super(key: key, child: child);
+    Key? key,
+    required this.builder,
+    required this.selector,
+    Widget? child,
+  }) : super(key: key, child: child);
 
   /// A function that builds a widget tree from [child] and the last result of
   /// [selector].
@@ -272,7 +274,7 @@ class _Selector0<St, Model> extends SingleChildStatefulWidget implements SingleC
     St state,
     Dispatch dispatch,
     Model model,
-    Widget child,
+    Widget? child,
   ) builder;
 
   /// A function that obtains some [InheritedWidget] and map their content into
@@ -287,14 +289,14 @@ class _Selector0<St, Model> extends SingleChildStatefulWidget implements SingleC
   _Selector0State<St, Model> createState() => _Selector0State<St, Model>();
 }
 
-class _Selector0State<St, Model> extends SingleChildState<_Selector0<St, Model>> {
-  Model model;
-  Widget cache;
-  Widget oldWidget;
+class _Selector0State<St, Model> extends SingleChildState<_Selector0<St, Model?>> {
+  Model? model;
+  late Widget cache;
+  Widget? oldWidget;
 
   @override
-  Widget buildWithChild(BuildContext context, Widget child) {
-    Model selected = widget.selector(context);
+  Widget buildWithChild(BuildContext context, Widget? child) {
+    Model? selected = widget.selector(context);
 
     if (oldWidget != widget || modelChanged(selected)) {
       model = selected;
@@ -314,9 +316,9 @@ class _Selector0State<St, Model> extends SingleChildState<_Selector0<St, Model>>
 
   /// Compare the old model with the new model.
   /// However, if the model is a list, compare each list item.
-  bool modelChanged(Model selected) {
+  bool modelChanged(Model? selected) {
     return (selected is List) && (model is List)
-        ? !(listEquals<dynamic>(selected, (model as List)))
+        ? !(listEquals<dynamic>(selected, (model as List?)))
         : selected != model;
   }
 }
