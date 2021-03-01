@@ -261,7 +261,7 @@ or slowly migrate between them.
 ***
 
 *Special thanks for <a href="https://github.com/rrousselGit">Remi Rousselet</a>, 
-main author or Provider, for helping me with ideas and making suggestions.*
+main author of Provider, for helping me with ideas and making suggestions.*
 
 *The Flutter packages I've authored:* 
 * <a href="https://pub.dev/packages/async_redux">async_redux</a>
@@ -287,7 +287,6 @@ main author or Provider, for helping me with ideas and making suggestions.*
 * <a href="https://flutter.dev/docs/development/ui/layout/constraints">Understanding constraints</a>
 
 ---<br>_Marcelo Glasberg:_<br>
-_https://github.com/marcglasberg_<br>
 _https://github.com/marcglasberg_<br>
 _https://twitter.com/glasbergmarcelo_<br>
 _https://stackoverflow.com/users/3411681/marcg_<br>
