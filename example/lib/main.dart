@@ -41,7 +41,7 @@ class MyHomePage extends StatelessWidget {
 
   int? counter(BuildContext ctx) => Provider.of<AppState>(ctx).counter;
 
-  String? description(BuildContext ctx) => Provider.of<AppState>(ctx).description;
+  String description(BuildContext ctx) => Provider.of<AppState>(ctx).description;
 
   VoidCallback onIncrement(BuildContext ctx) =>
       () => Provider.of<Dispatch<AppState>>(ctx, listen: false)(IncrementAndGetDescriptionAction());
@@ -56,7 +56,7 @@ class MyHomePage extends StatelessWidget {
             children: [
               const Text("You've pushed the button:"),
               Text('${counter(ctx)}', style: const TextStyle(fontSize: 30)),
-              Text('${description(ctx)}', style: const TextStyle(fontSize: 15)),
+              Text(description(ctx), style: const TextStyle(fontSize: 15)),
             ],
           ),
         ),

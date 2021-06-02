@@ -51,7 +51,7 @@ class MyHomePage extends StatelessWidget {
                 children: [
                   const Text("You've pushed the button:"),
                   Text('${store.state.counter}', style: const TextStyle(fontSize: 30)),
-                  Text(store.state.description!, style: const TextStyle(fontSize: 15)),
+                  Text(store.state.description, style: const TextStyle(fontSize: 15)),
                 ],
               ),
             ),

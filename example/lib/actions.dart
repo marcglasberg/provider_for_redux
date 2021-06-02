@@ -39,7 +39,7 @@ class IncrementAction extends ReduxAction<AppState> {
 
   // Synchronous reducer.
   @override
-  AppState reduce() => state.copy(counter: state.counter! + amount);
+  AppState reduce() => state.copy(counter: state.counter + amount);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

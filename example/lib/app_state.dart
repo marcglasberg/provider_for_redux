@@ -3,10 +3,13 @@
 
 /// The app state, which in this case is a counter and a description.
 class AppState {
-  final int? counter;
-  final String? description;
+  final int counter;
+  final String description;
 
-  AppState({this.counter, this.description});
+  AppState({
+    required this.counter,
+    required this.description,
+  });
 
   AppState copy({int? counter, String? description}) => AppState(
         counter: counter ?? this.counter,

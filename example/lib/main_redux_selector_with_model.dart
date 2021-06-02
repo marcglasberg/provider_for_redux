@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_for_redux/provider_for_redux.dart';
 import 'package:tuple/tuple.dart';
+
 import 'actions.dart';
 import 'app_state.dart';
 
@@ -58,7 +59,7 @@ class MyHomePage extends StatelessWidget {
                 children: [
                   const Text("You've pushed the button:"),
                   Text('${state.counter}', style: const TextStyle(fontSize: 30)),
-                  Text(state.description!, style: const TextStyle(fontSize: 15)),
+                  Text(state.description, style: const TextStyle(fontSize: 15)),
                 ],
               ),
             ),
