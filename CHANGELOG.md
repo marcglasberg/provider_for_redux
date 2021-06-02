@@ -1,6 +1,6 @@
 ## [3.0.0] - 2021/06/02
 
-* For AsyncRedux 11.0.0 and up.
+* Breaking change: For AsyncRedux 11.0.0 and up. Note: DispatchFuture is now simply Dispatch.
 
 ## [2.0.0] - 2021/03/05
 

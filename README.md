@@ -53,9 +53,7 @@ The `AsyncReduxProvider` widget above will expose the store, the state, and the 
 * The store's state, of type `AppState`. Get it like this: `Provider.of<AppState>(context)`.
 
 * The dispatch method, of type `Dispatch`. Get it like this: `Provider.of<Dispatch>(context)`.
-
-* The async dispatch method, of type `DispatchFuture`. Get it like this: `Provider.of<DispatchFuture>(context)`.
-           
+          
 This is a complete example:
 
 ```dart
