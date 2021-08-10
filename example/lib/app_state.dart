@@ -1,12 +1,15 @@
 // Developed by Marcelo Glasberg (Aug 2019).
 // For more info, see: https://pub.dartlang.org/packages/async_redux
 
+import 'package:flutter/foundation.dart';
+
 /// The app state, which in this case is a counter and a description.
+@immutable
 class AppState {
   final int counter;
   final String description;
 
-  AppState({
+  const AppState({
     required this.counter,
     required this.description,
   });
@@ -16,7 +19,7 @@ class AppState {
         description: description ?? this.description,
       );
 
-  static AppState initialState() => AppState(counter: 0, description: "");
+  static AppState initialState() => const AppState(counter: 0, description: "");
 
   @override
   bool operator ==(Object other) =>
