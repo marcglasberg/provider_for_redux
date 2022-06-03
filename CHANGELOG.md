@@ -1,10 +1,15 @@
+## [5.0.0] - 2022/06/03
+
+* Flutter 3.0 support
+* For AsyncRedux 15.
+
 ## [4.0.0] - 2021/06/02
 
-* For AsyncRedux 13 and up. 
+* For AsyncRedux 13 and up.
 
 ## [3.0.0] - 2021/06/02
 
-* For AsyncRedux 11 and up. 
+* For AsyncRedux 11 and up.
 
 ## [2.0.0] - 2021/03/05
 
