@@ -1,3 +1,5 @@
+[![pub package](https://img.shields.io/pub/v/provider_for_redux.svg)](https://pub.dartlang.org/packages/provider_for_redux)
+
 # provider_for_redux
 
 With <a href="https://pub.dev/packages/provider">Provider</a> you can inject your state, but it's
@@ -21,7 +23,7 @@ You should have learned that to use AsyncRedux the traditional way, you provide 
 your app by wrapping it with a `StoreProvider`, and then using the so called "connector" widgets,
 like the `MyHomePageConnector` below:
 
-```dart
+```
 @override
 Widget build(BuildContext context) =>
     StoreProvider<AppState>(
@@ -37,7 +39,7 @@ use `Provider` instead.
 
 For example:
 
-```dart
+```
 @override
 Widget build(BuildContext context) =>
     AsyncReduxProvider<AppState>.value( // Instead of StoreProvider.
@@ -58,7 +60,7 @@ its descendants:
 
 This is a complete example:
 
-```dart
+```
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key key}) : super(key: key);
 
@@ -110,41 +112,27 @@ class to read from the store.
 For <a href="https://github.com/marcglasberg/provider_for_redux/blob/master/example/lib/main_consumer.dart">
 example</a>:
 
-```dart
+```
 return Consumer<Store<AppState>>(
-builder: (context, store, child) =>
-...
-Text('${store.state.counter}'),
-...
-onPressed: () => store.dispatch(
-IncrementAction
-(
-)
-)
-,
-)
-,
+   builder: (context, store, child) =>
+      ...
+      Text('${store.state.counter}'),
+      ...
+      onPressed: () => store.dispatch(IncrementAction()),
+),
 ```
 
 But it's easier if you use `ReduxConsumer`, which already gives you the store, the state, and the
 dispatch method:
 
-```dart
+```
 return ReduxConsumer<AppState>(
-builder: (context, store,
-state
-,
-dispatch
-,
-child
-)
-=>
-...
+   builder: (context, store, state, dispatch, child) => ...
 ```
 
 This is a complete example:
 
-```dart            
+```            
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key key}) : super(key: key);
 
@@ -185,7 +173,7 @@ class to read from the store, while preventing unnecessary widget rebuilds.
 For <a href="https://github.com/marcglasberg/provider_for_redux/blob/master/example/lib/main_selector.dart">
 example</a>:
 
-```dart       
+```       
 return Selector<Store<AppState>, Tuple2<int, Dispatch>>(
 
    selector: (context, store) => 
@@ -207,19 +195,16 @@ hashcode. The widget will rebuild whenever the model changes.
 But it's easier if you use `ReduxSelector`, which already gives you the store, the state, and the
 dispatch method:
 
-```dart
+```
 return ReduxSelector<AppState, Tuple2<int, String>>(
 selector: (context, state) => Tuple2(state.counter, store.dispatch),
-
 builder: (ctx, store, state, dispatch, model, child) =>
-...
-Text('${state.counter}'),
-...
-onPressed: () => store.dispatch(IncrementAction()
-)
-,
-)
-,
+   ...
+   Text('${state.counter}'),
+   ...
+   onPressed: () => store.dispatch(IncrementAction()
+   ),
+),
 ```
 
 Try running
@@ -229,14 +214,10 @@ ReduxSelector with model</a> example.
 However, `ReduxSelector` also lets you return a `List` as the model. In case you do that, it will
 rebuild the widget whenever any of the items in the list changes:
 
-```dart
+```
 return ReduxSelector<AppState, dynamic>(
 selector: (context, state) => [...],
-builder: (context, store, state, dispatch, model,
-child
-)
-=>
-...    
+builder: (context, store, state, dispatch, model, child) => ...    
 ```                                                                                           
 
 **Using `ReduxSelector` with a list is the easiest way of all**, since you just need to list all of
@@ -254,7 +235,7 @@ rebuild. So you have two options:
 
 This is a complete example:
 
-```dart            
+```            
 
 Widget build(BuildContext context) {       
   return ReduxSelector<AppState, dynamic>(
@@ -316,6 +297,7 @@ Provider, for helping me with ideas and making suggestions.*
 * <a href="https://pub.dev/packages/assorted_layout_widgets">assorted_layout_widgets</a>
 * <a href="https://pub.dev/packages/weak_map">weak_map</a>
 * <a href="https://pub.dev/packages/themed">themed</a>
+* <a href="https://pub.dev/packages/bdd_framework">bdd_framework</a>
 
 *My Medium Articles:*
 

@@ -7,15 +7,15 @@ environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  async_redux: ^15.0.0
+  async_redux: ^19.0.0
   flutter:
     sdk: flutter
-  http: ^0.13.4
-  path_provider: ^2.0.5
-  provider: ^6.0.3
+  http: ^0.13.5
+  path_provider: ^2.0.13
+  provider: ^6.0.5
   provider_for_redux:
     path: ../
-  tuple: ^2.0.0
+  tuple: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -23,5 +23,4 @@ dev_dependencies:
 
 
 flutter:
-
   uses-material-design: true
