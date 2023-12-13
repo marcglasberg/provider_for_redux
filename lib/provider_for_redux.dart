@@ -47,8 +47,6 @@ import 'package:provider/single_child_widget.dart';
 ///  String myName = Provider.of<Store<AppState>>(context).state.myName;
 ///  Provider.of<Store<AppState>>(context).dispatch(IncrementAction());
 /// ```
-///
-///
 class AsyncReduxProvider<St> extends StatefulWidget {
   final Create<Store<St>> builder;
   final Dispose<Store<St>?>? dispose;
@@ -141,8 +139,6 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
       );
 }
 
-// ////////////////////////////////////////////////////////////////////////////
-
 /// This widget will obtain the AsyncRedux store, state and dispatch method from its ancestors,
 /// and pass them to the [builder].
 ///
@@ -170,7 +166,6 @@ class _AsyncReduxProviderState<St> extends State<AsyncReduxProvider<St>> {
 ///          child: Icon(Icons.add),
 ///        )));
 /// ```
-///
 class ReduxConsumer<St> extends Consumer3<Store<St>, St, Dispatch> {
   ReduxConsumer({
     Key? key,
@@ -180,8 +175,7 @@ class ReduxConsumer<St> extends Consumer3<Store<St>, St, Dispatch> {
       St state,
       Dispatch dispatch,
       Widget? child,
-    )
-        builder,
+    ) builder,
     Widget? child,
   }) : super(
           key: key,
@@ -189,8 +183,6 @@ class ReduxConsumer<St> extends Consumer3<Store<St>, St, Dispatch> {
           child: child,
         );
 }
-
-// ////////////////////////////////////////////////////////////////////////////
 
 /// This widget will obtain the AsyncRedux store, state and dispatch method from its ancestors,
 /// and pass them to the [builder].
@@ -225,7 +217,6 @@ class ReduxConsumer<St> extends Consumer3<Store<St>, St, Dispatch> {
 ///               child: Icon(Icons.add),
 ///             )));
 /// ```
-///
 class ReduxSelector<St, Model> extends _Selector0<St, Model> {
   ReduxSelector({
     Key? key,
@@ -236,8 +227,7 @@ class ReduxSelector<St, Model> extends _Selector0<St, Model> {
       Dispatch dispatch,
       Model model,
       Widget? child,
-    )
-        builder,
+    ) builder,
     required Model Function(BuildContext, St) selector,
     Widget? child,
   }) : super(
@@ -250,8 +240,6 @@ class ReduxSelector<St, Model> extends _Selector0<St, Model> {
           child: child,
         );
 }
-
-// ////////////////////////////////////////////////////////////////////////////
 
 class _Selector0<St, Model> extends SingleChildStatefulWidget implements SingleChildWidget {
   /// Both `builder` and `selector` must not be `null`.
@@ -324,5 +312,3 @@ class _Selector0State<St, Model> extends SingleChildState<_Selector0<St, Model?>
         : selected != model;
   }
 }
-
-// ////////////////////////////////////////////////////////////////////////////

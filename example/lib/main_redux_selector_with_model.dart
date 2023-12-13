@@ -34,8 +34,6 @@ class MyApp extends StatelessWidget {
       );
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
 /// The screen has a counter, a text description, and a button.
 /// When the button is tapped, the counter will increment synchronously,
 /// while an async process downloads some text description.
