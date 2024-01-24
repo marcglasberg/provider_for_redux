@@ -1,8 +1,12 @@
 name: provider_for_redux
 description: Allows you to use Provider with Redux. Uses AsyncRedux, the non-boilerplate version of Redux (https://pub.dev/packages/async_redux).
-version: 7.0.0
+version: 7.0.1
 # author: Marcelo Glasberg <marcglasberg@gmail.com>
 homepage: https://github.com/marcglasberg/provider_for_redux
+topics:
+  - provider
+  - redux
+  - state-management
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
