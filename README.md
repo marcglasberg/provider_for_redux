@@ -1,3 +1,5 @@
+[![](./example/SponsoredByMyTextAi.png)](https://mytext.ai)
+
 [![pub package](https://img.shields.io/pub/v/provider_for_redux.svg)](https://pub.dartlang.org/packages/provider_for_redux)
 
 # provider_for_redux
