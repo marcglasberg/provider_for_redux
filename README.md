@@ -16,6 +16,13 @@ Bloc, Mobx, Redux and other.
 This package lets you use it with <a href="https://pub.dev/packages/async_redux">AsyncRedux</a>, the
 non-boilerplate version of Redux.
 
+## AsyncRedux 30 compatibility
+
+Version 9 requires AsyncRedux 30, Flutter 3.47 and Dart 3.13 or later.
+Examples use `package:material_ui/material_ui.dart`; use the standalone Material
+and Cupertino packages when displaying AsyncRedux dialogs. Store, state and dispatch
+propagation keep their existing behavior.
+
 ## How to use it
 
 Please, read the async_redux <a href="https://pub.dev/packages/async_redux">documentation</a> first,

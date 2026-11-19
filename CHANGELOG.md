@@ -1,3 +1,8 @@
+## 9.0.0
+
+* **Breaking:** Require AsyncRedux 30, whose dialogs use the standalone Material and Cupertino packages.
+* Require Dart >=3.13.0 and Flutter >=3.47.0. Migrate example imports to package:material_ui.
+
 ## 8.0.1
 
 * Sponsored by [MyText.ai](https://mytext.ai)

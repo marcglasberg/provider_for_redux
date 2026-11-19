@@ -1,6 +1,6 @@
 name: provider_for_redux
 description: Allows you to use Provider with Redux. Uses AsyncRedux, the non-boilerplate version of Redux (https://pub.dev/packages/async_redux).
-version: 8.0.1
+version: 9.0.0
 # author: Marcelo Glasberg <marcglasberg@gmail.com>
 homepage: https://github.com/marcglasberg/provider_for_redux
 topics:
@@ -9,11 +9,11 @@ topics:
   - state-management
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
-  flutter: ">=3.16.0"
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: ">=3.47.0"
 
 dependencies:
-  async_redux: ^29.0.0
+  async_redux: ^30.0.0
   flutter:
     sdk: flutter
   path_provider: ^2.1.1
